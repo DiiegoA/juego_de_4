@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClasificacionCreateDlg" widgetVar="ClasificacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClasificacionTitle}">
+            <h:form id="ClasificacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clasificacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClasificacionLabel_tiemposg}" for="tiemposg" />
+                        <p:inputText id="tiemposg" value="#{clasificacionController.selected.tiemposg}" title="#{bundle.CreateClasificacionTitle_tiemposg}" required="true" requiredMessage="#{bundle.CreateClasificacionRequiredMessage_tiemposg}"/>
+                        <p:outputLabel value="#{bundle.CreateClasificacionLabel_tabla}" for="tabla" />
+                        <p:inputText id="tabla" value="#{clasificacionController.selected.tabla}" title="#{bundle.CreateClasificacionTitle_tabla}" required="true" requiredMessage="#{bundle.CreateClasificacionRequiredMessage_tabla}"/>
+                        <p:outputLabel value="#{bundle.CreateClasificacionLabel_jugador}" for="jugador" />
+                        <p:inputText id="jugador" value="#{clasificacionController.selected.jugador}" title="#{bundle.CreateClasificacionTitle_jugador}" required="true" requiredMessage="#{bundle.CreateClasificacionRequiredMessage_jugador}"/>
+                        <p:outputLabel value="#{bundle.CreateClasificacionLabel_jugador1}" for="jugador1" />
+                        <p:selectOneMenu id="jugador1" value="#{clasificacionController.selected.jugador1}" required="true" requiredMessage="#{bundle.EditClasificacionRequiredMessage_jugador1}">
+                            <f:selectItems value="#{jugadorController.itemsAvailableSelectOne}"
+                                           var="jugador1Item"
+                                           itemValue="#{jugador1Item}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{clasificacionController.create}" value="#{bundle.Save}" update="display,:ClasificacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClasificacionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClasificacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
